@@ -1,0 +1,20 @@
+{
+  "name": "study-systemjs-plugin-universal-test",
+  "version": "0.0.0",
+  "description": ":microscope: Studying how to test SystemJS Plugins.",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint packages",
+    "test": "npm run lint && npm run test:all",
+    "test:all": "mocha packages/*/test"
+  },
+  "keywords": [],
+  "author": "Douglas Duteil <douglasduteil@gmail.com> (douglasduteil.github.io)",
+  "license": "WTFPL",
+  "devDependencies": {
+    "eslint": "^2.10.2",
+    "eslint-config-standard": "^5.3.1",
+    "eslint-plugin-promise": "^1.1.0",
+    "eslint-plugin-standard": "^1.3.2"
+  }
+}
