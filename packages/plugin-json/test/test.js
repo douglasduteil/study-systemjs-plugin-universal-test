@@ -9,7 +9,7 @@ var expect = chai.expect
 describe('plugin-json', function () {
   before(function () {
     System.baseURL = path.resolve(__dirname, '..')
-    System.map['json'] = 'plugin-json.js'
+    System.map['json'] = 'lib/plugin-json.js'
   })
 
   it('should return the file as json', function () {

@@ -13,7 +13,7 @@ var file = chaiFiles.file
 describe('plugin-text', function () {
   before(function () {
     System.baseURL = path.resolve(__dirname, '..')
-    System.map['txt'] = 'plugin-text.js'
+    System.map['txt'] = 'lib/plugin-text.js'
   })
 
   it('should return the file as pure test', function () {

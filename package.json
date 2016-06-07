@@ -4,7 +4,10 @@
   "description": ":microscope: Studying how to test SystemJS Plugins.",
   "main": "index.js",
   "scripts": {
+    "build": "for D in packages/*/src; do [ -d \"${D}\" ] && babel $D -d $(echo $D | sed -e \"s/src/lib/g\"); done",
     "lint": "eslint packages",
+    "prepublish": "npm run build",
+    "preversion": "npm run build",
     "test": "npm run lint && npm run test:all",
     "test:all": "mocha packages/*/test"
   },
@@ -12,6 +15,8 @@
   "author": "Douglas Duteil <douglasduteil@gmail.com> (douglasduteil.github.io)",
   "license": "WTFPL",
   "devDependencies": {
+    "babel-cli": "^6.9.0",
+    "babel-preset-es2015": "^6.9.0",
     "chai": "^3.5.0",
     "chai-files": "^1.2.0",
     "eslint": "^2.10.2",
