@@ -20,4 +20,5 @@ before_install:
   - "NPM_VERSION=$(npm --version)"
   - "[ '2.0.0' != `echo -e \"2.0.0\\n$NPM_VERSION\" | sort -Vr | head -n1` ] || npm install -g npm@2"
   - "[ '3.0.0' != `echo -e \"3.0.0\\n$NPM_VERSION\" | sort -Vr | head -n1` ] || npm install -g npm"
+before_script:
   - "npm run build"
