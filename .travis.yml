@@ -6,7 +6,17 @@ cache:
   directories:
   - node_modules
 language: node_js
+env:
+  global:
+    - COVERAGE=false
+    - TASK=node
 matrix:
+  allow_failures:
+    - node_js: '0'
+    - node_js: '1'
+    - node_js: '2'
+    - node_js: '3'
+  fast_finish: true
   include:
     #
     - node_js: '0'
@@ -16,9 +26,38 @@ matrix:
     - node_js: '4'
     - node_js: '5'
     - node_js: node
+    #
+    - node_js: node
+      env: COVERAGE=true
+    #
+    - node_js: node
+      env: TASK=browser BROWSER_NAME=opera BROWSER_VERSION="11..latest"
+    - node_js: node
+      env: TASK=browser BROWSER_NAME=ie BROWSER_VERSION="9..latest"
+    - node_js: node
+      env: TASK=browser BROWSER_NAME=microsoftedge BROWSER_VERSION="13..latest"
+    - node_js: node
+      env: TASK=browser BROWSER_NAME=chrome BROWSER_VERSION="29..beta"
+    - node_js: node
+      env: TASK=browser BROWSER_NAME=firefox BROWSER_VERSION="45..latest"
+    - node_js: node
+      env: TASK=browser BROWSER_NAME=ipad BROWSER_VERSION="['6.1', '7.1', '8.2']"
+    - node_js: node
+      env: TASK=browser BROWSER_NAME=iphone BROWSER_VERSION="['6.1', '7.1', '8.2']"
+    - node_js: node
+      env: TASK=browser BROWSER_NAME=safari BROWSER_VERSION="9..latest"
+    - node_js: node
+      env: TASK=browser BROWSER_NAME=android BROWSER_VERSION="4.0..latest"
 before_install:
   - "NPM_VERSION=$(npm --version)"
   - "[ '2.0.0' != `echo -e \"2.0.0\\n$NPM_VERSION\" | sort -Vr | head -n1` ] || npm install -g npm@2"
   - "[ '3.0.0' != `echo -e \"3.0.0\\n$NPM_VERSION\" | sort -Vr | head -n1` ] || npm install -g npm"
+  - "[ $COVERAGE == false ] || npm install codecov.io"
+  - "[ $TASK != browser ] || [ $TRAVIS_PULL_REQUEST != false ] || [ $TRAVIS_BRANCH != master ] || export SAUCE_ACCESS_KEY=$MASTER_SAUCE_ACCESS_KEY"
+  - "[ $TASK != browser ] || [ $TRAVIS_PULL_REQUEST != false ] || [ $TRAVIS_BRANCH != master ] || export SAUCE_USERNAME=$MASTER_SAUCE_USERNAME"
 before_script:
   - "npm run build"
+after_script:
+  - "[ $COVERAGE == false ] || npm run test-cov"
+  - "[ $COVERAGE == false ] || cat ./coverage/lcov.info | ./node_modules/codecov.io/bin/codecov.io.js && rm -rf ./coverage"
+script: "npm run test:$TASK"
