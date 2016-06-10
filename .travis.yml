@@ -35,6 +35,8 @@ matrix:
     - node_js: node
       env: TASK=browser BROWSER_NAME=ie BROWSER_VERSION="9..latest"
     - node_js: node
+      env: TASK=browser BROWSER_NAME=microsoftedge BROWSER_VERSION="13..latest"
+    - node_js: node
       env: TASK=browser BROWSER_NAME=chrome BROWSER_VERSION="29..beta"
     - node_js: node
       env: TASK=browser BROWSER_NAME=firefox BROWSER_VERSION="45..latest"
