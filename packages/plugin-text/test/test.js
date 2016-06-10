@@ -1,26 +1,20 @@
-/* eslint-env mocha */
+'use strict'
 
 var SystemJS = require('systemjs')
-var chai = require('chai')
-var chaiFiles = require('chai-files')
+var fs = require('fs')
 var path = require('path')
+var test = require('tap').test
 
-chai.use(chaiFiles)
+test('plugin-text should return the file as pure test', function (t) {
+  t.plan(1)
 
-var expect = chai.expect
-var file = chaiFiles.file
+  // when
+  System.baseURL = path.resolve(__dirname, '..')
+  System.map['txt'] = 'lib/plugin-text.js'
 
-describe('plugin-text', function () {
-  before(function () {
-    System.baseURL = path.resolve(__dirname, '..')
-    System.map['txt'] = 'lib/plugin-text.js'
-  })
-
-  it('should return the file as pure test', function () {
-    var actualFilePath = path.resolve(__dirname, 'actual.txt')
-    return SystemJS.import(actualFilePath + '!')
-      .then(function (actual) {
-        expect(file(actualFilePath)).to.equal(actual)
-      })
-  })
+  var actualFilePath = path.resolve(__dirname, 'actual.txt')
+  return SystemJS.import(actualFilePath + '!')
+    .then(function (actual) {
+      t.same(fs.readFileSync(actualFilePath, 'utf8'), actual)
+    })
 })

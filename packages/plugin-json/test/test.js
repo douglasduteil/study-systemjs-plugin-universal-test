@@ -1,22 +1,19 @@
-/* eslint-env mocha */
+'use strict'
 
 var SystemJS = require('systemjs')
-var chai = require('chai')
 var path = require('path')
+var test = require('tap').test
 
-var expect = chai.expect
+test('plugin-json should return the file as json', function (t) {
+  t.plan(1)
 
-describe('plugin-json', function () {
-  before(function () {
-    System.baseURL = path.resolve(__dirname, '..')
-    System.map['json'] = 'lib/plugin-json.js'
-  })
+  // when
+  System.baseURL = path.resolve(__dirname, '..')
+  System.map['json'] = 'lib/plugin-json.js'
 
-  it('should return the file as json', function () {
-    var actualFilePath = path.resolve(__dirname, 'actual.json')
-    return SystemJS.import(actualFilePath + '!')
-      .then(function (actual) {
-        expect(require(actualFilePath)).to.eql(actual)
-      })
-  })
+  var actualFilePath = path.resolve(__dirname, 'actual.json')
+  return SystemJS.import(actualFilePath + '!')
+    .then(function (actual) {
+      t.same(require(actualFilePath), actual)
+    })
 })
