@@ -2,7 +2,7 @@
 
 var SystemJS = require('systemjs')
 var path = require('path')
-var test = require('tap').test
+var test = require('tape').test
 
 test('plugin-json should return the file as json', function (t) {
   t.plan(1)

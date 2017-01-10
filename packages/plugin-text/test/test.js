@@ -3,7 +3,13 @@
 var SystemJS = require('systemjs')
 var fs = require('fs')
 var path = require('path')
-var test = require('tap').test
+var test = require('tape').test
+
+var actualFilePath = path.join(__dirname, 'actual.txt')
+
+// HACK(douglasduteil): force inline path.join to ensure brfs is working
+// brfs seems to not reconise the variable above ...
+var expect = fs.readFileSync(path.join(__dirname, 'actual.txt'), 'utf8')
 
 test('plugin-text should return the file as pure test', function (t) {
   t.plan(1)
@@ -12,9 +18,8 @@ test('plugin-text should return the file as pure test', function (t) {
   System.baseURL = path.resolve(__dirname, '..')
   System.map['txt'] = 'lib/plugin-text.js'
 
-  var actualFilePath = path.resolve(__dirname, 'actual.txt')
   return SystemJS.import(actualFilePath + '!')
     .then(function (actual) {
-      t.same(fs.readFileSync(actualFilePath, 'utf8'), actual)
+      t.same(expect, actual)
     })
 })
