@@ -10,7 +10,7 @@
     "preversion": "npm run build",
     "test": "npm run lint && npm run test:node",
     "test-cov": "echo \"Error: no test specified\" && exit 1",
-    "test:browser": "npm run write-zuul && zuul test/browser.js --no-coverage",
+    "test:browser": "zuul test/browser.js --no-coverage",
     "test:node": "tape packages/*/test/*.js",
     "write-zuul": "COMMIT_SHA1=$(echo $TRAVIS_COMMIT | cut -c1-7 ) && printf \"name: $TRAVIS_BRANCH ($COMMIT_SHA1) - $TRAVIS_JOB_NUMBER\\nui: tape\\nbrowsers:\\n  - name: $BROWSER_NAME\\n    version: $BROWSER_VERSION\\n\">.zuul.yml"
   },
