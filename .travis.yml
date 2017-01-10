@@ -45,6 +45,7 @@ before_install:
   - "[ $COVERAGE == false ] || npm install codecov.io"
   - "[ $TASK != browser ] || [ $TRAVIS_PULL_REQUEST != false ] || [ $TRAVIS_BRANCH != master ] || export SAUCE_ACCESS_KEY=$MASTER_SAUCE_ACCESS_KEY"
   - "[ $TASK != browser ] || [ $TRAVIS_PULL_REQUEST != false ] || [ $TRAVIS_BRANCH != master ] || export SAUCE_USERNAME=$MASTER_SAUCE_USERNAME"
+  - "[ $TASK != browser ] || echo \"Running as $SAUCE_USERNAME user\""
 after_script:
   - "[ $COVERAGE == false ] || npm run test-cov"
   - "[ $COVERAGE == false ] || cat ./coverage/lcov.info | ./node_modules/codecov.io/bin/codecov.io.js && rm -rf ./coverage"
