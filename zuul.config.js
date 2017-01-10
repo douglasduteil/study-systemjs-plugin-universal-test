@@ -12,7 +12,7 @@ const {
 const name = `${TRAVIS_BRANCH} (${COMMIT_SHA1}) - ${TRAVIS_JOB_NUMBER}`
 
 module.exports = {
-  name: CI ? name : 'Local cloud launch > ' + new Date(),
+  name: CI ? name : 'Local cloud launch |> ' + new Date(),
   browserify: [
     {transform: 'brfs'}
   ],
