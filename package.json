@@ -29,7 +29,7 @@
     "zuul": "^3.10.1"
   },
   "dependencies": {
-    "systemjs": "^0.20.1",
+    "systemjs": "^0.21.0",
     "tape": "^4.6.3"
   }
 }
