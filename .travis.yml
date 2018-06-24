@@ -8,8 +8,8 @@ cache:
 language: node_js
 matrix:
   allow_failures:
-    - node_js: '4'
-    - node_js: '5'
+    - node_js: '6'
+    - node_js: '7'
     #
     - node_js: node
       env: COVERAGE=true
@@ -33,10 +33,10 @@ matrix:
   fast_finish: true
   include:
     #
-    - node_js: '4'
-    - node_js: '5'
     - node_js: '6'
     - node_js: '7'
+    - node_js: '8'
+    - node_js: '9'
     - node_js: node
     #
     - node_js: node
